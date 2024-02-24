@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-weight: 200;
+        background-color: #fdf1e2;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      #todo-form {
+        margin-bottom: 30px;
+      }
+
+      #todo-input {
+        width: 70%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      #todo-input:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 5px #66afe9;
+      }
+
+      button[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #12bb2e;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #563705d9;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      li span {
+        flex-grow: 1;
+        margin-left: 10px;
+      }
+
+      li button {
+        padding: 5px 10px;
+        font-size: 14px;
+        background-color: #2f312f;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      li button:hover {
+        background-color: #d32f2f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>To-Do List</h1>
+
+      <form id="todo-form">
+        <input type="text" id="todo-input" placeholder="Enter a task" />
+        <button type="submit">Add</button>
+      </form>
+
+      <ul id="todo-list"></ul>
+    </div>
+
+    <script>
+      document
+        .getElementById("todo-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          // Get the input value
+          var taskInput = document.getElementById("todo-input");
+          var taskText = taskInput.value.trim();
+
+          // Create a new list item
+          if (taskText !== "") {
+            var listItem = document.createElement("li");
+            listItem.innerHTML =
+              '<input type="checkbox">' +
+              "<span>" +
+              taskText +
+              "</span>" +
+              "<button>Delete</button>";
+
+            // Add the new list item to the todo list
+            var todoList = document.getElementById("todo-list");
+            todoList.appendChild(listItem);
+
+            // Clear the input field
+            taskInput.value = "";
+          }
+        });
+
+      document
+        .getElementById("todo-list")
+        .addEventListener("click", function (event) {
+          var target = event.target;
+
+          // Check if the clicked element is a delete button
+          if (target.tagName === "BUTTON") {
+            var listItem = target.parentNode;
+            var todoList = listItem.parentNode;
+
+            // Remove the list item from the todo list
+            todoList.removeChild(listItem);
+          }
+        });
+    </script>
+  </body>
+</html>
